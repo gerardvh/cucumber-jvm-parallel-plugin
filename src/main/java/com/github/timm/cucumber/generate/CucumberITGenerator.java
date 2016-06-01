@@ -179,8 +179,13 @@ public class CucumberITGenerator {
 
         for (int i = 0; i < formatStrs.length; i++) {
             final String formatStr = formatStrs[i].trim();
-            sb.append(String.format("\"%s:%s/%s.%s\"", formatStr,
-                config.getCucumberOutputDir().replace('\\', '/'), fileCounter, formatStr));
+            if (formatStr.contains("rerun")) {
+                sb.append(String.format("\"%s:%s/%s%s.%s\"", formatStr,
+                        config.getCucumberOutputDir().replace('\\', '/'), fileCounter, formatStr, "txt"));
+            } else {
+                sb.append(String.format("\"%s:%s/%s.%s\"", formatStr,
+                        config.getCucumberOutputDir().replace('\\', '/'), fileCounter, formatStr));
+            }
 
             if (i < formatStrs.length - 1) {
                 sb.append(", ");
